@@ -32,6 +32,15 @@ hestia_install_flags:
   port: '8083'
   lang: 'en'
 
+  #List of conflict packages
+hestia_conflict_packages:
+    - nginx
+    - exim4
+    - mariadb-server
+    - apache2
+    - hestia
+    - postfix
+
 # Install additional php versions.
 # Checks if it is already is installed, so you can list all desired php versions.
 # Only gets installed when installer_flag is set to: --multiplephp no

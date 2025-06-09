@@ -5,6 +5,9 @@
   apt:
     upgrade: yes
 
+- name: "Detect and remove conflicting packages"
+  ansible.builtin.include_tasks: conflicts_pkg.yml
+
 - name: "get hestiacp install script"
   become: true
   get_url: url=https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh dest=/root/hst-install.sh

@@ -1,0 +1,19 @@
+---
+
+# Detect if conflicting packages are present and remove them
+
+- name: "Gather the package facts"
+  package_facts:
+    manager: auto
+- name: "Detect conflicting packages"
+  pause:
+    prompt: "{{item}} found. It will be removed. Ctl + C to abort."
+  when: "'{{item}}' in ansible_facts.packages"
+  loop: "{{ hestia_conflict_packages | default ( '[]', true )}}"
+- name: "Removing packages"
+  become: true
+  command: "apt remove {{item}} -y"
+  when: "'{{item}}' in ansible_facts.packages"
+  loop: "{{ hestia_conflict_packages | default ( '[]', true )}}"
+
+...
