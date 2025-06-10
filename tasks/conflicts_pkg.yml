@@ -12,7 +12,7 @@
   loop: "{{ hestia_conflict_packages | default ( '[]', true )}}"
 - name: "Removing packages"
   become: true
-  command: "apt remove {{item}} -y"
+  command: bash -c 'DEBIAN_FRONTEND=noninteractive apt-get purge -y {{item}}'
   when: "'{{item}}' in ansible_facts.packages"
   loop: "{{ hestia_conflict_packages | default ( '[]', true )}}"
 
